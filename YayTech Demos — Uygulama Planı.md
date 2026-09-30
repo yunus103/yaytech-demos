@@ -37,7 +37,7 @@ yaytech-demos/
 ├─ 404.html                   ← "Bu önizleme artık yayında değil" sayfası
 ├─ _shared/
 │  ├─ preview-badge.js        ← "Tasarım önizlemesi – YayTech Studio" etiketi
-│  └─ track.js                ← görüntülenme ping'i (Faz 4)
+│  └─ preview.js              ← görüntülenme takibi (Faz 4)
 ├─ templates/
 │  ├─ pilates/
 │  │  ├─ TEMPLATE.md          ← bu template'in sözleşmesi (bölüm 4)
@@ -57,7 +57,8 @@ yaytech-demos/
 └─ scripts/
    ├─ new-site.mjs            ← template'i sites/<slug>'a kopyalar, site.json yazar
    ├─ optimize-images.mjs     ← inbox → sites/<slug>/assets (WebP, boyut sınırı)
-   └─ cleanup.mjs             ← 30 günü geçen siteleri siler
+   ├─ cleanup.mjs             ← 30 günü geçen siteleri siler
+   └─ notify.mjs              ← yayınlanan / silinen demoyu lead-finder'a bildirir (Faz 4)
 ```
 
 **Kopya modeli nasıl işler**
@@ -255,7 +256,7 @@ Repo kökündeki `CLAUDE.md` agent'ın iş tarifidir; `GEMINI.md` aynı içeriğ
 12. **Teslim:** Kullanıcıya şunları ver:
     - Demo linki: `https://<slug>.yaytechstudio.com` (Vercel deploy'u \~1 dk; linki açıp kontrol etmesini söyle).
     - WhatsApp mesajı önerisi (aşağıdaki kurallarla).
-    - Lead-finder'a yapıştırılacak link (Faz 4'te agent bunu API ile kendisi yazar).
+    - Kontrol linki `?me=1` ile (kendi açılışın sayılmaz); işletmeye gönderilecek link temiz. Link lead-finder'a `notify.mjs` ile kendiliğinden yazılır.
 
 **Push yetkisi**: Agent commit'i hazırlar, değişen dosyaların özetini gösterir ve push için **her seferinde onay ister**. `sites/` dışında bir dosyaya (`templates/`, `_shared/`, `scripts/`, `vercel.json`) dokunduysa bunu ayrıca belirtir.
 
@@ -329,8 +330,9 @@ Notlar: <lead'deki CRM notları, varsa>
 **5. Faz 4 eklemeleri**
 
 - **Görüntülenme takibi:** `src/app/api/demo-view/route.ts`, `{ slug }` alır, `demo_view_count`'u artırır ve `demo_last_viewed_at`'i yazar. CORS sadece `*.yaytechstudio.com`.
-  - `_shared/track.js` sayfa yüklenince bir kez ping atar. WhatsApp'ın link önizleme botu JS çalıştırmadığı için sayılmaz.
-  - Kendi açılışların sayılmasın: linki bir kez `?me=1` ile açınca tarayıcıya bayrak yazılır, o tarayıcıdan ping atılmaz.
+  - `_shared/preview.js` (reklam engelleyiciler `track.js` adını engellediği için bu isim) açılışta, sekme gizlenince (süre + kaydırma) ve WhatsApp / arama / harita / Instagram tıklamasında `sendBeacon` ile ping atar. WhatsApp'ın link önizleme botu JS çalıştırmadığı için sayılmaz.
+  - Kayıtlar `demo_views` tablosunda: şehir/ülke (Vercel IP başlıkları), cihaz, işletim sistemi, tarayıcı, tekil ziyaretçi (tarayıcıdaki rastgele kimlik; ham IP saklanmaz). Bir trigger `demo_view_count` ve `demo_last_viewed_at`'i günceller.
+  - Kendi açılışların sayılmasın: herhangi bir demoyu bir kez `?me=1` ile açınca `.yaytechstudio.com` çerezi yazılır, o tarayıcıdan hiçbir demo sayılmaz (`?me=0` geri alır). Lead-finder'daki demo linki zaten `?me=1` ile açılır.
 - **Agent'ın linki kendisi yazması:** `POST /api/demos` (Bearer token, `DEMOS_API_TOKEN` env). Agent push'tan sonra `{ leadId, slug, url, template }` gönderir; elle yapıştırma adımı kalkar. Cleanup silince aynı endpoint'e silindi bilgisi gider.
 
 ## Temizlik ve yaşam döngüsü
@@ -382,41 +384,43 @@ Faz 1 ve 2 tamamlandığında sistem lead-finder olmadan da çalışır (prompt 
 
 **Faz 1 — Repo iskeleti ve yayın altyapısı**
 
-- [ ] `C:\PROJECTS\WebProject\yaytech-demos` klasörü, `git init`, GitHub'da yunus103/yaytech-demos (private)
-- [ ] `vercel.json`, `.vercelignore`, `.gitignore` (`inbox/`), `404.html`
-- [ ] `_shared/preview-badge.js`
-- [ ] `scripts/new-site.mjs` (kopya + `site.json` + slug doğrulama) ve `scripts/cleanup.mjs` (`--dry-run`, `--days`)
-- [ ] Vercel projesi + `*.yaytechstudio.com` domain'i (senin tarafında, dashboard'dan)
-- [ ] Doğrulama: `sites/test/` → `test.yaytechstudio.com` açılıyor; `/_t/...` ve `/_shared/...` yolları çalışıyor; kök dosya önceliği sorun çıkarmıyor; `X-Robots-Tag` başlığı geliyor
+- [x] `C:\PROJECTS\WebProject\yaytech-demos` klasörü, `git init`, GitHub'da yunus103/yaytech-demos (private)
+- [x] `vercel.json`, `.vercelignore`, `.gitignore` (`inbox/`), `404.html`
+- [x] `_shared/preview-badge.js`
+- [x] `scripts/new-site.mjs` (kopya + `site.json` + slug doğrulama) ve `scripts/cleanup.mjs` (`--dry-run`, `--days`)
+- [x] Vercel projesi + `*.yaytechstudio.com` domain'i (senin tarafında, dashboard'dan)
+- [x] Doğrulama: `sites/test/` → `test.yaytechstudio.com` açılıyor; `/_t/...` ve `/_shared/...` yolları çalışıyor; kök dosya önceliği sorun çıkarmıyor; `X-Robots-Tag` başlığı geliyor
 
 **Faz 2 — Pilates template'i ve agent prosedürü**
 
-- [ ] `pilates/` → `templates/pilates/` kopyası (orijinal klasöre dokunulmaz)
-- [ ] `index.html`'deki SVD'ye özel metinleri (beat'ler, fotoğraf alt yazısı, `<title>`, meta, OG) config'e taşı
-- [ ] Renkleri CSS değişkenlerine bağla, `SITE.theme` ekle
-- [ ] Ağır medyayı `media/` altına al, `/_t/pilates/media/...` yollarına çevir
-- [ ] Mobil yedek: düşük güçlü cihaz ve `prefers-reduced-motion` için 3D reformer yerine poster
-- [ ] Robots meta + preview badge script'i
-- [ ] `TEMPLATE.md` ve `config.example.js`
-- [ ] `scripts/optimize-images.mjs` (sharp ile)
-- [ ] `CLAUDE.md` + `GEMINI.md` prosedürü (bölüm 6)
-- [ ] Prova: SVD Pilates'i sıfırdan prosedürle `sites/svd-pilates/` olarak üret, süreyi ölç, takılan adımları düzelt
+- [x] `pilates/` → `templates/pilates/` kopyası (orijinal klasöre dokunulmaz)
+- [x] `index.html`'deki SVD'ye özel metinleri (beat'ler, fotoğraf alt yazısı, `<title>`, meta, OG) config'e taşı
+- [x] Renkleri CSS değişkenlerine bağla, `SITE.theme` ekle
+- [x] Ağır medyayı `media/` altına al, `/_t/pilates/media/...` yollarına çevir
+- [x] Mobil yedek: düşük güçlü cihaz ve `prefers-reduced-motion` için 3D reformer yerine poster
+- [x] Robots meta + preview badge script'i
+- [x] `TEMPLATE.md` ve `config.example.js`
+- [x] `scripts/optimize-images.mjs` (sharp ile)
+- [x] `CLAUDE.md` + `GEMINI.md` prosedürü (bölüm 6)
+- [x] Prova: SVD Pilates'i sıfırdan prosedürle `sites/svd-pilates/` olarak üret, süreyi ölç, takılan adımları düzelt
 
 **Faz 3 — Lead-finder entegrasyonu**
 
-- [ ] Migration: `demo_*` kolonları
-- [ ] `src/data/demo-templates.ts`
-- [ ] Prompt oluşturucu (satış açısı website analizinden ve skor gerekçelerinden)
-- [ ] `demo-card.tsx` + `saveDemo` server action
-- [ ] `Business` tipine yeni alanlar
+- [x] Migration: `demo_*` kolonları
+- [x] `src/data/demo-templates.ts`
+- [x] Prompt oluşturucu (satış açısı website analizinden; saatler ve yorumlar Google Place Details'tan anlık)
+- [x] `demo-card.tsx` + `saveDemo` server action
+- [x] `Business` tipine yeni alanlar
 
 **Faz 4 — Takip ve otomasyon**
 
-- [ ] `/api/demo-view` + `_shared/track.js` (kendi açılışlarını hariç tutma)
-- [ ] `/api/demos` (token'lı) → agent linki kendisi yazar, cleanup silmeleri lead-finder'a yansır
-- [ ] Lead listesinde "demo açıldı" sıralaması / filtresi
+- [x] `/api/demo-view` + `_shared/preview.js` (kendi açılışlarını hariç tutma)
+- [x] `/api/demos` (token'lı) → agent linki kendisi yazar, cleanup silmeleri lead-finder'a yansır
+- [x] Lead listesinde "demo açıldı" sıralaması / filtresi
 
 **Faz 5 — Yeni sektörler (sürekli)**
+
+Ertelenen fikir: demo açıldığı anda telefona anlık bildirim (ntfy.sh, `/api/demo-view` içinde tek `fetch`).
 
 - [ ] Lead-finder'da "site yok / kötü" skoru en yüksek sektörleri çıkar; sıradaki template'leri buna göre seç
 - [ ] Her yeni template bölüm 4'teki kurallarla, güçlü bir modelle
