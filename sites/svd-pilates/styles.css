@@ -236,9 +236,7 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 12px; fl
   .beat p { font-size: 1rem; }
   /* Phones: compact spring panel above the bottom bar; reformer.js centres the model between it and the text.
      It steps aside on the last beat, whose CTA needs the room. */
-  /* The shared preview badge sits right above the bottom bar; the spring panel clears both. */
-  :root { --yt-badge-offset: 68px; }
-  .panel { left: 12px; right: 12px; width: auto; bottom: calc(124px + env(safe-area-inset-bottom, 0px)); padding: 10px 12px 12px; gap: 8px; border-radius: 20px; }
+  .panel { left: 12px; right: 12px; width: auto; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); padding: 10px 12px 12px; gap: 8px; border-radius: 20px; }
   .panel-top b { font-size: 1.1rem; }
   .meter { height: 3px; }
   .spring { min-height: 44px; padding: 5px 2px; gap: 2px; font-size: .7rem; border-radius: 12px; }

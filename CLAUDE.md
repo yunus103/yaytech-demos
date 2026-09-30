@@ -31,7 +31,7 @@ For building or changing a template, read `templates/README.md` instead; the rul
 ## Content honesty (never break)
 - No invented reviews, team members, numbers ("500+ üye"), certificates, awards, prices or schedules. No data = hidden section, never placeholder text.
 - Reviews are real Google reviews, shortened without changing the meaning.
-- Every demo keeps `noindex` and the preview badge.
+- Every demo keeps `noindex`, the `preview-badge.js` script and the footer `data-yt-preview` slot ("Tasarım önizlemesi · YayTech Studio").
 
 ## WhatsApp message
 - Turkish, 3–5 sentences, "siz" form, warm but professional. No capitals for emphasis, no exclamation piles, no campaign language.
