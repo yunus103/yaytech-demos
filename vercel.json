@@ -4,6 +4,11 @@
   "rewrites": [
     { "source": "/_t/:tpl/media/:path*", "destination": "/templates/:tpl/media/:path*" },
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "(?<slug>[a-z0-9-]+)\\.yaytechstudio\\.com" }],
+      "destination": "/sites/:slug"
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "(?<slug>[a-z0-9-]+)\\.yaytechstudio\\.com" }],
       "destination": "/sites/:slug/:path*"
