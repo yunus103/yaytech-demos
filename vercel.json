@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/_t/:tpl/media/:path*", "destination": "/templates/:tpl/media/:path*" },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "(?<slug>[a-z0-9-]+)\\.yaytechstudio\\.com" }],
+      "destination": "/sites/:slug/:path*"
+    }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
+  ]
+}

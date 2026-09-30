@@ -1,0 +1,7 @@
+scripts/
+inbox/
+node_modules/
+*.md
+package.json
+package-lock.json
+sites/*/site.json

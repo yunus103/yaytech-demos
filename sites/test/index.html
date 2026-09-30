@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Smoke test</title>
+  <link rel="stylesheet" href="assets/smoke.css">
+</head>
+<body>
+  <h1>Smoke test</h1>
+  <p>Relative asset: <span class="css-ok">FAIL</span></p>
+  <p>Template media: <span id="media">…</span></p>
+  <p>Shared badge: look bottom-left.</p>
+  <script>
+    fetch("/_t/_smoke/media/test.txt")
+      .then((r) => (r.ok ? r.text() : "FAIL " + r.status))
+      .then((t) => (document.getElementById("media").textContent = t.trim()));
+  </script>
+  <script src="/_shared/preview-badge.js" defer></script>
+</body>
+</html>
