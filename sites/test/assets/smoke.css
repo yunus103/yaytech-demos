@@ -1,3 +1,0 @@
-body { font-family: system-ui, sans-serif; padding: 24px; }
-.css-ok { font-size: 0; }
-.css-ok::after { content: "OK"; font-size: 16px; }
