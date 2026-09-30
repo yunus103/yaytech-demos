@@ -7,7 +7,8 @@
   const style = document.createElement("style");
   style.textContent = `
     .yt-badge {
-      position: fixed; left: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+      /* Templates with a fixed bottom bar set --yt-badge-offset so the badge clears it. */
+      position: fixed; left: 12px; bottom: calc(12px + var(--yt-badge-offset, 0px) + env(safe-area-inset-bottom));
       z-index: 2147483000; display: flex; align-items: center; gap: 2px;
       padding: 4px 4px 4px 12px; border-radius: 999px;
       background: rgba(20, 20, 20, .78); color: #fff;

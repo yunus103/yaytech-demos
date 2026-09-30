@@ -1,0 +1,8 @@
+{
+  "name": "yaytech-demos",
+  "private": true,
+  "description": "Local scripts only; the site itself has no build step.",
+  "dependencies": {
+    "sharp": "^0.35.5"
+  }
+}

@@ -49,6 +49,13 @@ fs.cpSync(templateDir, siteDir, {
   filter: (src) => src === templateDir || !SKIP.has(path.relative(templateDir, src)),
 });
 
+// OG tags need the absolute URL, which is known here; templates mark it with __SITE_URL__.
+const indexPath = path.join(siteDir, "index.html");
+if (fs.existsSync(indexPath)) {
+  const html = fs.readFileSync(indexPath, "utf8");
+  fs.writeFileSync(indexPath, html.replaceAll("__SITE_URL__", `https://${slug}.yaytechstudio.com`));
+}
+
 const siteJson = {
   slug,
   template,
