@@ -8,11 +8,11 @@ For building or changing a template, read `templates/README.md` instead; the rul
 - `sites/<slug>/`: one demo = a full copy of a template + filled `config.js` + `assets/` + `site.json`. Served at `https://<slug>.yaytechstudio.com`.
 - `_shared/`: files every demo loads by absolute path (`/_shared/preview-badge.js`). `templates/<t>/media/` is shared heavy media, served at `/_t/<t>/media/...`.
 - `inbox/<slug>/`: raw images from the user. Not in git.
-- `scripts/`: `new-site.mjs`, `optimize-images.mjs`, `cleanup.mjs`. Plain Node; images need `npm install` once (sharp).
+- `scripts/`: `new-site.mjs`, `optimize-images.mjs`, `cleanup.mjs`, `notify.mjs`. Plain Node; images need `npm install` once (sharp). `notify.mjs` (also called by `cleanup.mjs`) reports to lead-finder using `LEAD_FINDER_URL` and `DEMOS_API_TOKEN` from `.env` (not in git).
 - Deploy: push to `main`, Vercel deploys in ~1 minute. No build step.
 
 ## Procedure
-1. **Cleanup.** `node scripts/cleanup.mjs`. Tell the user which sites were deleted (they go into this demo's commit).
+1. **Cleanup.** `node scripts/cleanup.mjs`. Tell the user which sites were deleted (they go into this demo's commit). It also marks them deleted in lead-finder; if that fails it prints the `notify.mjs` command to run after the push.
 2. **Prepare.** Read `templates/<template>/TEMPLATE.md`. Check the slug from the prompt: lowercase `a-z 0-9 -`, ≤ 40 chars, Turkish letters transliterated, derived from the business name without filler words ("SVD Pilates Stüdyo" → `svd-pilates`). If `sites/<slug>` exists, append the district (`svd-pilates-kadikoy`).
    Before copying, ask the user in one list for everything still missing: the prompt's "bana sor" line plus the `TEMPLATE.md` fields whose source is the user (e.g. formats, programs, team). Do not try to scrape Google Maps or Instagram for them.
 3. **Copy.** `node scripts/new-site.mjs <template> <slug> --lead <leadId> --name "<business name>"`.
@@ -24,15 +24,16 @@ For building or changing a template, read `templates/README.md` instead; the rul
 9. **Optional touch.** If the business has a distinctive trait (e.g. "sadece kadınlara", "fizyoterapist eşliğinde"), bring it into the hero. Do not touch the areas `TEMPLATE.md` marks as careful.
 10. **Check.** Go through the `TEMPLATE.md` checklist item by item. Report anything that could not be satisfied.
 11. **Publish.** `git add sites/<slug>` (plus cleanup deletions) and `git commit -m "demo: <slug>"`. Show the user the changed files and ask before `git push`, every time. If anything outside `sites/` changed (`templates/`, `_shared/`, `scripts/`, `vercel.json`), say so explicitly.
-12. **Hand over.**
-    - Link: `https://<slug>.yaytechstudio.com` (ready ~1 minute after push; ask the user to open and check it on a phone).
+12. **Report to lead-finder.** After the push: `node scripts/notify.mjs saved <slug>`. If it fails, show the error and tell the user to paste the link into the lead's Demo card instead.
+13. **Hand over.**
+    - Check link: `https://<slug>.yaytechstudio.com?me=1` (ready ~1 minute after push). The user opens this one on their phone; `?me=1` stops their own visits from being counted on every demo.
+    - Link to send: `https://<slug>.yaytechstudio.com`, without `?me=1`.
     - WhatsApp message suggestion (rules below).
-    - The link to paste into lead-finder.
 
 ## Content honesty (never break)
 - No invented reviews, team members, numbers ("500+ üye"), certificates, awards, prices or schedules. No data = hidden section, never placeholder text.
 - Reviews are real Google reviews, shortened without changing the meaning.
-- Every demo keeps `noindex`, the `preview-badge.js` script and the footer `data-yt-preview` slot ("Tasarım önizlemesi · YayTech Studio").
+- Every demo keeps `noindex`, the `preview-badge.js` and `preview.js` (view tracking) scripts and the footer `data-yt-preview` slot ("Tasarım önizlemesi · YayTech Studio").
 
 ## WhatsApp message
 - Turkish, 3–5 sentences, "siz" form, warm but professional. No capitals for emphasis, no exclamation piles, no campaign language.
@@ -44,5 +45,5 @@ For building or changing a template, read `templates/README.md` instead; the rul
 
 ## Maintenance requests
 - "<slug>'i tut" → `keep: true` in `sites/<slug>/site.json`, commit, ask before push.
-- "<slug>'i hemen kaldır" → delete `sites/<slug>/`, commit, ask before push. Same day if the business asks.
+- "<slug>'i hemen kaldır" → delete `sites/<slug>/`, commit, ask before push, then `node scripts/notify.mjs deleted <slug>`. Same day if the business asks.
 - "<slug>'i template'in son haliyle yenile" → re-copy the template files over the site, keeping `config.js`, `assets/`, `site.json` and the filled `<head>` tags.

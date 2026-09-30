@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { notifyDeleted } from "./notify.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITES = path.join(ROOT, "sites");
@@ -55,3 +56,14 @@ for (const { slug, age } of expired) {
 }
 if (expired.length === 0) console.log(`No sites older than ${days} days.`);
 for (const s of skipped) console.warn(`skipped: ${s}`);
+
+// A failed notification must not fail the cleanup: the deletions still go into the commit.
+if (!dryRun && expired.length > 0) {
+  try {
+    const updated = await notifyDeleted(expired.map(e => e.slug));
+    console.log(`lead-finder: ${updated} lead(s) marked deleted`);
+  } catch (error) {
+    console.warn(`lead-finder not notified (${error.message}); run: node scripts/notify.mjs deleted ${expired.map(e => e.slug).join(" ")}`);
+  }
+}
+
