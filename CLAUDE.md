@@ -14,6 +14,7 @@ For building or changing a template, read `templates/README.md` instead; the rul
 ## Procedure
 1. **Cleanup.** `node scripts/cleanup.mjs`. Tell the user which sites were deleted (they go into this demo's commit).
 2. **Prepare.** Read `templates/<template>/TEMPLATE.md`. Check the slug from the prompt: lowercase `a-z 0-9 -`, ≤ 40 chars, Turkish letters transliterated, derived from the business name without filler words ("SVD Pilates Stüdyo" → `svd-pilates`). If `sites/<slug>` exists, append the district (`svd-pilates-kadikoy`).
+   Before copying, ask the user in one list for everything still missing: the prompt's "bana sor" line plus the `TEMPLATE.md` fields whose source is the user (e.g. formats, programs, team). Do not try to scrape Google Maps or Instagram for them.
 3. **Copy.** `node scripts/new-site.mjs <template> <slug> --lead <leadId> --name "<business name>"`.
 4. **Data.** Fill `sites/<slug>/config.js` from the prompt: name, phone, WhatsApp, address, Maps, Instagram, hours, rating. Leave unknown fields empty so their sections hide.
 5. **Ask for images.** From the image table in `TEMPLATE.md`, give the user a concrete list: "`inbox/<slug>/` klasörüne şunları koy: …". Wait until they say it is done.
