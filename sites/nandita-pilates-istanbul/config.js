@@ -27,7 +27,7 @@ const SITE = {
     logo: "assets/logo.webp",
     logoAlt: "Nandita Pilates Studio logosu",
     studio: "assets/studio.webp",
-    studioMobile: "",
+    studioMobile: "assets/studio-m.webp",
     studioAlt: "Nandita Pilates stüdyo alanı ve renkli stüdyo duvarları"
   },
   copy: {
