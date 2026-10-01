@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<!-- Crawlers (WhatsApp previews) do not run JS: title, description and OG tags must be filled in here, not from config.js. -->
+<title>Vega Beam Pilates · Göztepe</title>
+<meta name="description" content="Göztepe Feneryolu'nda aletli reformer pilates, mat pilates ve fonksiyonel antrenman. Bireysel ve grup dersleri, ücretsiz demo ders fırsatı.">
+<meta name="theme-color" content="#F3EFEA">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Vega Beam Pilates · Göztepe">
+<meta property="og:description" content="Göztepe Feneryolu'nda aletli reformer pilates, mat pilates ve fonksiyonel antrenman. Bireysel ve grup dersleri, ücretsiz demo ders fırsatı.">
+<meta property="og:url" content="https://vega-beam-pilates-goztepe.yaytechstudio.com/">
+<meta property="og:image" content="https://vega-beam-pilates-goztepe.yaytechstudio.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="assets/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="config.js"></script>
+<!-- Theme before first paint, so the page never flashes the default palette. -->
+<script>
+  for (const [k, v] of Object.entries(SITE.theme)) document.documentElement.style.setProperty(`--${k.replace(/[A-Z]/g, c => "-" + c.toLowerCase())}`, v);
+  document.querySelector('meta[name="theme-color"]').content = SITE.theme.surface;
+</script>
+<script src="reformer.js" defer></script>
+<script src="app.js" defer></script>
+<script src="/_shared/preview-badge.js" defer></script>
+<script src="/_shared/preview.js" defer></script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img id="brand-logo" src="" alt="" width="44" height="44"><b data-text="business.shortName"></b></a>
+    <nav aria-label="Bölümler"><a href="#studyo">Stüdyo</a><a href="#ekip" hidden>Ekip</a><a href="#ders">Sana uygun ders</a><a href="#yorumlar" hidden>Yorumlar</a><a class="cta js-wa" href="#" target="_blank" rel="noopener">Rezervasyon</a></nav>
+    <button class="menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Menüyü aç"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-label="Menü">
+  <nav class="menu-links">
+    <a href="#studyo">Stüdyo</a><a href="#ekip" hidden>Ekip</a><a href="#ders">Sana uygun ders</a><a href="#yorumlar" hidden>Yorumlar</a><a href="#iletisim">İletişim</a>
+  </nav>
+  <div class="menu-foot">
+    <p id="menu-info"></p>
+    <div class="row">
+      <a class="btn btn-line js-call" href="#">Ara</a>
+      <a class="btn btn-light js-wa" href="#" target="_blank" rel="noopener">WhatsApp'tan mesaj</a>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+  <section class="scene" id="scene" aria-label="Reformer">
+    <div class="stage" id="stage" data-beat="0">
+      <canvas id="reformer" aria-label="Sürüklenebilir 3D reformer aleti"></canvas>
+
+      <div class="beat" data-beat="0">
+        <h1 data-text="copy.beats.0.title"></h1>
+        <p data-text="copy.beats.0.text"></p>
+        <div class="row"><a class="btn btn-dark" href="#ders">Sana uygun ders hangisi?</a></div>
+      </div>
+      <div class="beat off" data-beat="1" aria-hidden="true">
+        <h2 data-text="copy.beats.1.title"></h2>
+        <p data-text="copy.beats.1.text"></p>
+      </div>
+      <div class="beat off" data-beat="2" aria-hidden="true">
+        <h2 data-text="copy.beats.2.title"></h2>
+        <p data-text="copy.beats.2.text"></p>
+        <div class="row"><a class="btn btn-accent" href="#ders">Ders ve saat seçimi</a></div>
+      </div>
+
+      <p class="hint" id="hint"><i></i>Taşıyıcıyı sola çek</p>
+
+      <div class="panel" id="panel">
+        <div class="panel-top"><b id="level">Orta direnç</b><span class="breath" id="breath"></span></div>
+        <div class="meter"><i id="meter"></i></div>
+        <div class="springs" id="springs"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="photo" id="studyo">
+    <picture>
+      <source id="photo-mobile" media="(max-width: 700px)" srcset="">
+      <img id="photo-img" src="" alt="">
+    </picture>
+    <div class="wrap">
+      <h2 data-text="copy.photo.title"></h2>
+      <p data-text="copy.photo.text"></p>
+    </div>
+  </section>
+
+  <section class="section team" id="ekip" hidden>
+    <div class="wrap">
+      <div class="title">
+        <h2 data-text="copy.team.title"></h2>
+        <p data-text="copy.team.text"></p>
+      </div>
+      <div class="team-grid" id="team"></div>
+    </div>
+  </section>
+
+  <section class="section" id="ders">
+    <div class="wrap">
+      <div class="title">
+        <h2>Sana uygun ders, sana uygun saat.</h2>
+        <p>Birkaç kısa soruda sana özel bir başlangıç planı çıkarıyoruz. Saat seçildiğinde rezervasyon mesajı WhatsApp'ta hazır açılır.</p>
+      </div>
+      <div class="duo">
+        <div class="card quiz" id="quiz" aria-live="polite"></div>
+        <div class="card book" id="booking">
+          <label class="field"><b>Adın <span>(isteğe bağlı)</span></b><input class="input" id="f-name" type="text" autocomplete="given-name" placeholder="Örn. Ayşe" maxlength="40"></label>
+          <div class="field"><b>Format</b><div class="chips" id="f-format"></div></div>
+          <div class="field"><b>Gün</b><div class="chips scroll" id="f-day"></div></div>
+          <div class="field" id="f-time-field"><b>Saat</b><div class="times" id="f-time"></div></div>
+          <p class="summary" id="summary" aria-live="polite"></p>
+          <a class="btn btn-dark" id="book-btn" href="#" target="_blank" rel="noopener">WhatsApp'tan ayırt</a>
+          <p class="fine">Uygunluğu stüdyo WhatsApp'tan teyit eder.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section voice" id="yorumlar" hidden>
+    <div class="wrap">
+      <span class="stars" id="stars" hidden></span>
+      <div class="quote"><p id="q-text"></p></div>
+      <p class="who" id="q-who"></p>
+      <div class="qnav">
+        <button class="arrow" type="button" id="q-prev" aria-label="Önceki yorum">←</button>
+        <div class="qdots" id="q-dots"></div>
+        <button class="arrow" type="button" id="q-next" aria-label="Sonraki yorum">→</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="iletisim">
+    <div class="wrap">
+      <div class="contact-main">
+        <h2>Stüdyoda tanışalım.</h2>
+        <p class="lead">Uygun saati ve formatı WhatsApp'tan birlikte belirleyebiliriz. İlk ders için rahat bir kıyafet ve kaymaz çorap yeterli.</p>
+        <div class="row">
+          <a class="btn btn-light js-wa" href="#" target="_blank" rel="noopener">WhatsApp'tan mesaj</a>
+          <a class="btn btn-line" id="maps-link" href="#" target="_blank" rel="noopener">Yol tarifi</a>
+        </div>
+      </div>
+      <dl class="info" id="info"></dl>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year"></span> <span data-text="business.name"></span></span>
+    <span data-yt-preview>Tasarım: <a href="https://yaytechstudio.com" target="_blank" rel="noopener">YayTech Studio</a></span>
+  </div>
+</footer>
+
+<div class="mbar" aria-label="Hızlı iletişim">
+  <a class="btn btn-line js-call" href="#">Ara</a>
+  <a class="btn btn-accent js-wa" href="#" target="_blank" rel="noopener">WhatsApp'tan mesaj</a>
+</div>
+
+</body>
+</html>
