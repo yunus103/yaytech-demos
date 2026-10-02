@@ -4,8 +4,8 @@ const SITE = {
   business: {
     name: "Sante Pilates",
     shortName: "Sante",
-    phone: "0537 430 94 77",
-    whatsapp: "905374309477",
+    phone: "0530 201 58 88",
+    whatsapp: "905302015888",
     address: "Steel Gyo Rezidans, Arnavutköy Merkez, Yenibayır Sk. No:25, Arnavutköy / İstanbul",
     mapsQuery: "Sante Pilates Steel Gyo Rezidans Arnavutköy",
     instagram: "seldasante_pilatess",
