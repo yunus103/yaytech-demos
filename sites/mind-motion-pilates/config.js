@@ -36,7 +36,7 @@ const SITE = {
       { title: "Her yay, farklı bir direnç.", text: "Kırmızı en ağır, sarı en hafif. Aşağıdaki yaylarla direnci değiştirip taşıyıcıyı çektiğinde fark hemen hissediliyor. Derste bu ayarı eğitmenin yapar." },
       { title: "Disiplinli egzersiz, yüksek enerji.", text: "Bireysel, düet ve grup derslerinde doğru form, akıcı tempo ve her derste motivasyonunu artıran birebir ilgi." }
     ],
-    photo: { title: "Ferah, temiz ve enerjisi yüksek bir stüdyo.", text: "İçerenköy Karslı Ahmet Caddesi'nde ışıklı kemerli aynalar, ahşap reformerlar ve hafta içi 09:00'dan 21:00'e randevulu seanslar." },
+    photo: { title: "Güneş alan, ferah ve huzurlu bir stüdyo.", text: "İçerenköy Karslı Ahmet Caddesi'nde doğal ışık alan ahşap reformerlar, ışıklı kemerli aynalar ve hafta içi 09:00'dan 21:00'e randevulu seanslar." },
     team: { title: "", text: "" }
   },
   team: [],
