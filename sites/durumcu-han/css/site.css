@@ -253,7 +253,7 @@ html:not(.kagit-ilk) .kagit-ipucu { opacity: 0; transform: translateY(6px); }
   background: var(--gece);
   transition: opacity .6s .1s, visibility 0s .7s;
 }
-.kagit-yukleniyor img { width: 150px; animation: nefes 1.6s ease-in-out infinite; }
+.kagit-yukleniyor img { width: 150px; height: auto; animation: nefes 1.6s ease-in-out infinite; }
 @keyframes nefes { 50% { opacity: .45; } }
 .kagit-hazir .kagit-yukleniyor { opacity: 0; visibility: hidden; }
 
