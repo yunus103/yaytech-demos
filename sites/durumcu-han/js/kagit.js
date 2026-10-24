@@ -540,16 +540,33 @@ const Kagit = (() => {
     return true;
   }
 
-  function geri() {
+  function geri(hizli = false, sonra = null) {
     if (anim || surukle || indeks === 0) return false;
     etkilesim = true;
     if (kok.classList.contains('kagit-bitti')) ac();
-    oynat(indeks - 1, fSon, dinlenme(performance.now() + 780), 780, () => {
+    const sure = hizli ? 420 : 780;
+    oynat(indeks - 1, fSon, dinlenme(performance.now() + sure), sure, () => {
       indeks--;
       sayaciYaz();
+      sonra?.();
     });
     return true;
   }
+
+  // Dot tap: rolls sheet by sheet to the target. One chain at a time; a new tap just retargets it.
+  let hedef = null;
+  function git(k) {
+    if (surukle) return;
+    const bos = hedef === null;
+    hedef = k;
+    if (bos) yuru();
+  }
+  function yuru() {
+    if (indeks === hedef) { hedef = null; return; }
+    if (anim) { setTimeout(yuru, 120); return; }
+    if (!(hedef > indeks ? ileri : geri)(true, yuru)) hedef = null;
+  }
+  adimlar.forEach((li, k) => li.querySelector('button').addEventListener('click', () => git(k)));
 
   function bitir() {
     kok.classList.add('kagit-bitti');
