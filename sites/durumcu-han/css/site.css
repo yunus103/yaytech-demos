@@ -529,7 +529,7 @@ button.kalem-ic[aria-pressed="true"] .yildiz-ikon rect { fill: var(--kirmizi); s
 }
 .harita { position: relative; aspect-ratio: 100 / 124; width: 100%; max-width: 520px; }
 .harita-kemer {
-  position: absolute; inset: 6px;
+  position: absolute; inset: 6px; overflow: hidden;
   background: var(--gece-2);
   -webkit-mask: var(--kemer-124) center / 100% 100% no-repeat;
   mask: var(--kemer-124) center / 100% 100% no-repeat;
