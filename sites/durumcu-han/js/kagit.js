@@ -6,6 +6,7 @@
 // The sheet is a strip mesh in "roll space" (rows parallel to the roll axis). The vertex shader
 // wraps every row behind the contact line onto an Archimedean spiral, so the roll thickens as it goes.
 const Kagit = (() => {
+  const LOGO_ORAN = 410 / 800;  // height / width of img/logo.webp
   const kok = document.documentElement;
   const katman = document.querySelector('.kagit');
   const tuval = katman.querySelector('.kagit-tuval');
@@ -279,7 +280,7 @@ const Kagit = (() => {
   }
 
   async function yaprakCiz(y, o) {
-    const [[foto, norm, malz], logo] = await Promise.all([haritaYukle(y.foto, 1200), resimYukle('img/logo.svg')]);
+    const [[foto, norm, malz], logo] = await Promise.all([haritaYukle(y.foto, 1200), resimYukle('img/logo.webp')]);
     const [renk, x] = tuvalYap(o.W, o.H);
     const zemin = x.createRadialGradient(o.W * 0.5, o.H * 0.4, 0, o.W * 0.5, o.H * 0.4, Math.hypot(o.W, o.H) * 0.6);
     zemin.addColorStop(0, '#08201a');
@@ -313,7 +314,7 @@ const Kagit = (() => {
       const notY = taban - nPx * 1.5;
       const cizgiY = notY - nPx * 2.2;
       const bY = cizgiY - W * 0.06;
-      const lw = W * 0.5, lh = lw * 222 / 330;
+      const lw = W * 0.5, lh = lw * LOGO_ORAN;
       const alanUst = ust + lh + W * 0.02, alanAlt = bY - bPx * 0.95;
       const s = Math.min(W * 1.2, (alanAlt - alanUst) * 1.15);
       return {
@@ -374,7 +375,7 @@ const Kagit = (() => {
       return {
         foto,
         ciz(logo) {
-          const lw = Math.min(kolon * 0.75, H * 0.5), lh = lw * 222 / 330;
+          const lw = Math.min(kolon * 0.75, H * 0.5), lh = lw * LOGO_ORAN;
           x.textAlign = 'left';
           x.drawImage(logo, pad, H * 0.5 - lh - H * 0.06, lw, lh);
           // Fit the title to the text column so it never runs into the photo.
@@ -415,12 +416,12 @@ const Kagit = (() => {
 
   // Logo printed once per tile on the kraft side, slightly rotated, like the shop's wrapping paper.
   async function baskiYap() {
-    const logo = await resimYukle('img/logo.svg');
+    const logo = await resimYukle('img/logo.webp');
     const [c, x] = tuvalYap(512, 512, '#fff');
     x.translate(256, 256);
     x.rotate(-0.12);
     x.globalAlpha = 0.85;
-    x.drawImage(logo, -110, -74, 220, 148);
+    x.drawImage(logo, -120, -60, 240, 240 * LOGO_ORAN);
     const doku = gl.createTexture();
     dokuYukle(gl, doku, 3, c, true);
   }
