@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LUMENX · Şarjlı masa lambaları ve LED armatürler</title>
+<meta name="description" content="LUMENX şarjlı masa lambaları ve LED armatürler. Kasa rengini RAL koduyla, ışık rengini Kelvin değeriyle seçin; ürünü gece, akşam ve gündüz ortamında 3D olarak deneyin ve teklif alın.">
+<meta name="theme-color" content="#0e0a0b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LUMENX · Işığı, masanıza koymadan önce görün">
+<meta property="og:description" content="Şarjlı masa lambaları ve LED armatürler. RAL kodlu kasa renkleri, Kelvin değerli ışık, 3D önizleme.">
+<meta property="og:image" content="assets/renders/og.jpg">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="assets/brand/lumenx-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,300..600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preload" as="image" href="assets/renders/hero-d-2700.webp" media="(min-width: 760px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/renders/hero-m-2700.webp" media="(max-width: 759px)" fetchpriority="high">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Store","name":"Frekans Elektrik Aydınlatma","brand":{"@type":"Brand","name":"LUMENX"},"telephone":"+90 552 700 02 34","address":{"@type":"PostalAddress","streetAddress":"Bereketzade Mah. Okçumusa Cad. İpek Çıkmazı Sk. Alkan İş Hanı No:2 Kat:4 İç Kapı No:25","addressLocality":"Beyoğlu","addressRegion":"İstanbul","addressCountry":"TR"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">İçeriğe geç</a>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="#top" data-home aria-label="LUMENX ana sayfa"><img src="assets/brand/lumenx-light.svg" alt="LUMENX" width="158" height="50"></a>
+    <nav class="nav" aria-label="Ana menü">
+      <a href="#koleksiyon" data-home>Koleksiyon</a>
+      <a href="#isik" data-home>Işık rengi</a>
+      <a href="#projeler" data-home>Projeler</a>
+      <a href="#iletisim" data-home>İletişim</a>
+    </nav>
+    <button class="qbtn" id="openQuote" type="button" aria-haspopup="dialog">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5h12M4 10h12M4 15h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span class="qlabel">Teklif listesi</span><span class="n" id="qCount" data-zero>0</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<div id="home">
+
+  <section class="hero" id="top" aria-label="Giriş">
+    <div class="hero-media" id="heroMedia" style="--lv:1">
+      <picture class="hero-frame" data-k="off"><source media="(max-width: 759px)" data-srcset="assets/renders/hero-m-off.webp"><img data-src="assets/renders/hero-d-off.webp" alt="" width="2400" height="1350"></picture>
+      <picture class="hero-frame on" data-k="2700"><source media="(max-width: 759px)" srcset="assets/renders/hero-m-2700.webp"><img src="assets/renders/hero-d-2700.webp" alt="Restoran masasında yanan Avior şarjlı masa lambası, gece" width="2400" height="1350" fetchpriority="high"></picture>
+      <picture class="hero-frame" data-k="3000"><source media="(max-width: 759px)" data-srcset="assets/renders/hero-m-3000.webp"><img data-src="assets/renders/hero-d-3000.webp" alt="" width="2400" height="1350"></picture>
+      <picture class="hero-frame" data-k="4000"><source media="(max-width: 759px)" data-srcset="assets/renders/hero-m-4000.webp"><img data-src="assets/renders/hero-d-4000.webp" alt="" width="2400" height="1350"></picture>
+      <button class="hero-hit" id="heroLamp" type="button" aria-label="Lambaya dokunun: ışık seviyesini değiştirir"></button>
+    </div>
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <h1>Işığı, masanıza koymadan önce görün.</h1>
+        <p class="lede">LUMENX şarjlı masa lambaları ve LED armatürler. Kasayı RAL koduyla, ışığı Kelvin değeriyle seçin; masanızda nasıl yanacağını burada deneyin.</p>
+        <div class="cta-row">
+          <a class="btn btn-light" href="#koleksiyon" data-home>Koleksiyonu keşfedin</a>
+          <a class="btn btn-line" href="#urun-avior">Avior'u 3D deneyin</a>
+        </div>
+      </div>
+      <div class="hero-ctl" role="group" aria-label="Işık denemesi">
+        <div class="seg seg-k" id="heroK">
+          <button type="button" data-k="2700" aria-pressed="true"><i style="--c:255,187,108"></i>2700 K</button>
+          <button type="button" data-k="3000" aria-pressed="false"><i style="--c:255,201,132"></i>3000 K</button>
+          <button type="button" data-k="4000" aria-pressed="false"><i style="--c:255,234,202"></i>4000 K</button>
+        </div>
+        <div class="seg seg-l" id="heroL" role="group" aria-label="Işık seviyesi">
+          <button type="button" data-l="0" aria-pressed="false">Kapalı</button>
+          <button type="button" data-l="1" aria-pressed="false">Düşük</button>
+          <button type="button" data-l="2" aria-pressed="false">Orta</button>
+          <button type="button" data-l="3" aria-pressed="true">Yüksek</button>
+        </div>
+        <p class="hero-cap" id="heroCap">Avior · Gold kasa, krem abajur</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band paper" id="koleksiyon" aria-labelledby="kolH">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 id="kolH">Koleksiyon</h2>
+          <p>Renk noktalarıyla kasa renklerini görün. <span class="only-hover">Ürünün ışığını yakmak için fotoğrafın üzerine gelin.</span><span class="only-touch">Ampul simgesi ürünün ışığını yakar.</span></p>
+        </div>
+        <div class="filters" role="group" aria-label="Ürün filtresi">
+          <button type="button" data-f="all" aria-pressed="true">Tümü</button>
+          <button type="button" data-f="table" aria-pressed="false">Şarjlı masa lambaları</button>
+          <button type="button" data-f="arm" aria-pressed="false">LED armatürler</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="band kelvin" id="isik" aria-labelledby="kH">
+    <div class="wrap kel">
+      <div class="kel-stage" id="kelStage">
+        <div class="kel-frames" id="kelFrames"></div>
+        <div class="kel-read"><span class="kel-k" id="kelK">3000<small>K</small></span><span class="kel-name" id="kelName">Yumuşak beyaz</span></div>
+      </div>
+      <div class="kel-side">
+        <h2 id="kH">Aynı masa, farklı ışık.</h2>
+        <p>Kelvin değeri ışığın rengini belirler. Sürgüyü kaydırın: aynı masa, aynı Altıgen armatür, yalnızca ışık rengi değişir.</p>
+        <div class="kel-ctl">
+          <label for="kelRange" class="sr">Renk sıcaklığı</label>
+          <input class="krange" id="kelRange" type="range" min="2700" max="6500" step="50" value="3000" aria-valuetext="3000 Kelvin">
+          <div class="kscale" aria-hidden="true"><span>2700 K</span><span>4000 K</span><span>6500 K</span></div>
+        </div>
+        <div class="kuses" id="kelUses"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="projeler" aria-labelledby="pH">
+    <div class="wrap proj">
+      <div class="proj-copy">
+        <h2 id="pH">Otel, restoran ve kafe projeleri</h2>
+        <p>Şarjlı masa lambaları kablo çekmeden her masaya ışık götürür; kapanıştan sonra şarj istasyonunda toplanır. Armatürlerde ölçü, profil yüksekliği ve RAL rengi projenize göre üretilir.</p>
+        <p>Masa lambaları ortalama 8 saatte şarj olur, dokunarak üç kademede kısılır; elektronik aksamda 2 yıl garanti vardır.</p>
+      </div>
+      <div class="stations">
+        <h3>Şarj istasyonu</h3>
+        <p>Tek lambalık kasetten 36'lı istasyona kadar.</p>
+        <div class="st-row" id="stRow"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band" aria-labelledby="cH">
+    <div class="wrap cta-in">
+      <h2 id="cH">Seçtiklerinizi gönderin, fiyatı projenize göre hazırlayalım.</h2>
+      <p>Ürünleri kasa rengi, ışık rengi ve adediyle teklif listesine ekleyin; liste tek bir WhatsApp mesajı olarak bize ulaşır.</p>
+      <div class="cta-row">
+        <button class="btn btn-light" type="button" data-open-quote>Teklif listesini aç</button>
+        <a class="btn btn-wa" href="https://wa.me/905527000234" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp'tan yazın</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="product" hidden></div>
+</main>
+
+<footer class="foot" id="iletisim">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="assets/brand/lumenx-light.svg" alt="LUMENX" width="190" height="61">
+        <p>LUMENX, Frekans Elektrik Aydınlatma markasıdır. Şarjlı masa lambaları Türkiye'de üretilir.</p>
+      </div>
+      <dl>
+        <div><dt>Telefon ve WhatsApp</dt><dd><a href="tel:+905527000234">0552 700 02 34</a></dd></div>
+        <div><dt>Adres</dt><dd>Bereketzade Mah. Okçumusa Cad. İpek Çıkmazı Sk. Alkan İş Hanı No:2 Kat:4 İç Kapı No:25, Beyoğlu / İstanbul</dd></div>
+      </dl>
+      <nav aria-label="Alt menü" class="foot-nav">
+        <a href="#koleksiyon" data-home>Koleksiyon</a>
+        <a href="#isik" data-home>Işık rengi rehberi</a>
+        <a href="#projeler" data-home>Projeler</a>
+        <a href="https://wa.me/905527000234" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="foot-bot"><span>© 2026 Frekans Elektrik Aydınlatma</span><span>Tasarım ve geliştirme: YayTech Studio</span></div>
+  </div>
+</footer>
+
+<div class="drawer" id="drawer" hidden>
+  <div class="scrim" data-close></div>
+  <aside class="panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div class="panel-h"><h2 id="drawerTitle">Teklif listesi</h2><button class="x" type="button" data-close aria-label="Kapat"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+    <div class="panel-b">
+      <div class="qitems" id="qItems"></div>
+      <form class="form" id="qForm" novalidate>
+        <h3>İletişim bilgileriniz</h3>
+        <div class="row2">
+          <div class="field"><label for="fName">Ad soyad</label><input id="fName" autocomplete="name"></div>
+          <div class="field"><label for="fCo">Firma</label><input id="fCo" autocomplete="organization"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="fTel">Telefon</label><input id="fTel" type="tel" autocomplete="tel" inputmode="tel"></div>
+          <div class="field"><label for="fCity">Şehir</label><input id="fCity" autocomplete="address-level2"></div>
+        </div>
+        <div class="field"><label for="fNote">Not</label><textarea id="fNote" placeholder="Proje, teslim tarihi, mekân bilgisi"></textarea></div>
+      </form>
+    </div>
+    <div class="panel-f">
+      <a class="btn btn-wa" id="sendWa" href="https://wa.me/905527000234" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp ile teklif iste</a>
+      <button class="btn btn-line" id="copyQuote" type="button">Talep metnini kopyala</button>
+      <p>Mesaj, seçtiğiniz ürünler ve iletişim bilgilerinizle hazır açılır; göndermeden önce düzenleyebilirsiniz.</p>
+    </div>
+  </aside>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastTxt"></span><button type="button" id="toastBtn">Listeyi aç</button></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></symbol>
+</svg>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
