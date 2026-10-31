@@ -501,8 +501,8 @@ export class Viewer {
     this.apply(this.lastState);
   }
 
-  // Every background table gets a copy of the lamp, always on at 2700 K like the other scenes' background lamps.
-  // Their light on the tables and the banquette is in the bake (a generic shaded lamp): the copies only glow.
+  // Every background table gets a copy of the lamp, following the main lamp's switch, level and colour temperature.
+  // Their light on the tables and the banquette is in the bake (a generic shaded lamp, always lit): the copies only glow.
   attachRoom(R) {
     for (const o of this.placeholder) { o.removeFromParent(); o.geometry.dispose(); }
     this.placeholder = [];
@@ -518,7 +518,7 @@ export class Viewer {
     if (this.ctl) this.ctl.maxDistance = 2;
   }
 
-  applyRoom(key, fin) {
+  applyRoom(key, fin, f, lc) {
     const R = this.room_;
     // a mode whose maps are still loading keeps the previous mode's until they arrive
     if (R.lm[key]) {
@@ -526,11 +526,11 @@ export class Viewer {
       R.mats.forEach(m => { m.lightMap = R.lm[key]; m.lightMapIntensity = k; });
       R.fx.view.map = R.view[key];
     } else R.perMode(key).then(() => { if (this.room_ === R && this.lastState?.mode === key) this.apply(this.lastState); });
-    const fx = ROOM_FX[key], warm = kLinear(2700);
+    const fx = ROOM_FX[key], warm = kLinear(2700); // wall sconces are not the product: fixed warm
     R.fx.view.color.setScalar(fx.view);
     R.fx.curtain.color.setRGB(.86, .82, .74, THREE.LinearSRGBColorSpace).multiplyScalar(fx.curtain);
     R.fx.sconce_glass.color.copy(warm).multiplyScalar(fx.glass);
-    this.bgKits.forEach(({ lamp, pos }) => { lamp.setFinish(fin); lamp.setLight(KIT_OUTPUT * LAMP, pos, warm); });
+    this.bgKits.forEach(({ lamp, pos }) => { lamp.setFinish(fin); lamp.setLight(KIT_OUTPUT * f, pos, lc); });
   }
 
   // Programs depend on the target they draw into: the scene is only ever drawn into linear render targets
@@ -630,7 +630,6 @@ export class Viewer {
         const n0 = this.shadeMats.length, e0 = this.emitters.length;
         const info = this.buildLamp(p, g, M, true);
         this.bgShades.push(...this.shadeMats.splice(n0));
-        this.emitters.slice(e0).forEach(e => { e.bg = true; });
         this.addLight(pointLight(5, x + .1, info.bulbY, z), 1.4, 'bg');
       });
       this.placeSetting(M, -.36, .14, .15); this.placeSetting(M, .38, .16, -.15);
@@ -949,16 +948,14 @@ export class Viewer {
     const glowC = lc.clone().multiply(tint).multiplyScalar(shade && s.shade === 'kirmizi' ? 1.6 : 1.1);
     this.shadeMats.forEach(m => { m.color.copy(tint); m.emissive.copy(glowC); m.emissiveIntensity = 1.7 * f; });
     this.shadeProbe.color.copy(glowC).multiplyScalar(1.1 * f).add(tint.clone().multiplyScalar(mode.env * .5));
-    // background-table lamps (hero scene) stay on at 2700 K whatever the main lamp does
-    const bgC = kLinear(2700);
-    const bgGlow = bgC.clone().multiply(tint).multiplyScalar(1.1);
-    this.bgShades.forEach(m => { m.color.copy(tint); m.emissive.copy(bgGlow); m.emissiveIntensity = 1.7 * LAMP; });
-    this.emitters.forEach(e => { e.m.emissive.copy(e.bg ? bgC : lc); e.m.emissiveIntensity = e.gain * (e.bg ? LAMP : f); });
+    // background-table lamps follow the main lamp: same switch, level and colour temperature
+    this.bgShades.forEach(m => { m.color.copy(tint); m.emissive.copy(glowC); m.emissiveIntensity = 1.7 * f; });
+    this.emitters.forEach(e => { e.m.emissive.copy(lc); e.m.emissiveIntensity = e.gain * f; });
     if (this.kit) { this.kit.setFinish(s.fin); this.kit.setLight(KIT_OUTPUT * f, this.kit.lampPos, lc); }
     this.lamps.forEach(l => {
       const role = l.userData.role;
-      l.color.copy(role === 'glow' ? glowC : role === 'bg' ? bgGlow : lc);
-      l.intensity = l.userData.base * (role === 'bg' ? LAMP : f);
+      l.color.copy(role === 'glow' || role === 'bg' ? glowC : lc);
+      l.intensity = l.userData.base * f;
     });
     // crude bounce: light reflected off the lit table/floor reaches the walls and ceiling
     const warmGrey = new THREE.Color('#8a7a6a');
@@ -973,7 +970,7 @@ export class Viewer {
       this.bounce.color.set('#e9eef5'); this.bounce.groundColor.set('#cdbfae'); this.bounce.intensity = mode.env * (isT ? 3.6 : 2.2);
     }
 
-    if (this.room_) this.applyRoom(s.mode || 'gece', s.fin);
+    if (this.room_) this.applyRoom(s.mode || 'gece', s.fin, f, lc);
     this.capture(mode);
     this.dirty = true;
   }
