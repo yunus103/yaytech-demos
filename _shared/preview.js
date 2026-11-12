@@ -2,7 +2,7 @@
 // scroll depth whenever the tab is hidden, and an "action" beacon for WhatsApp / call / Maps / Instagram clicks.
 // Open any demo once with ?me=1 to stop counting this browser on every demo (?me=0 undoes it).
 (() => {
-  const ENDPOINT = "https://lead-finder-ecru-xi.vercel.app/api/demo-view";
+  const ENDPOINT = "https://panel.yaytechstudio.com/api/demo-view";
   const ME_COOKIE = "yt_me";
 
   if (!location.hostname.endsWith(".yaytechstudio.com") || navigator.webdriver) return;
